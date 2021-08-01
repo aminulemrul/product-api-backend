@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::post('/login', 'APILoginController@login');
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('logout', 'APILoginController@logout');
-    Route::get('/products', 'ProductsController@all');
+    Route::get('/products', 'ProductsController@index');
     Route::post('/products', 'ProductsController@store');
     Route::get('/products/{product}', 'ProductsController@show');
     Route::put('/products/{product}', 'ProductsController@update');
