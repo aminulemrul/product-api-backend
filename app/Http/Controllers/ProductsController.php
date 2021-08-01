@@ -48,25 +48,20 @@ class ProductsController extends Controller
             'price' => 'required',
             'image' => 'required',
         ]);
-
         if($request->hasFile('image'))
         {
             $image = $request->file('image');
-            $image_name = time().$image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads');
-            $image->move($destinationPath, $image_name);
+            $image_name = time().'.'.$image->getClientOriginalExtension();
+            $image->storeAs('public/products', $image_name);
         }else{
             $image_name = 'default.jpg';
         }
-
         $product = new Products;
         $product->image = $image_name;
         $product->title = $request->title;
         $product->description = $request->description;
         $product->price = $request->price;
         $product->save();
-
-//        $product = Products::create($request->all());
         return response()->json(['message'=> 'Product created',
             'product' => $product]);
     }
@@ -111,12 +106,9 @@ class ProductsController extends Controller
         if($request->hasFile('image'))
         {
             $image = $request->file('image');
-            $image_name = time().$image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads');
-            $image->move($destinationPath, $image_name);
+            $image_name = time().'.'.$image->getClientOriginalExtension();
+            $image->storeAs('public/products', $image_name);
             $products->image = $image_name;
-        }else{
-            $products->image = $request->image;
         }
         $products->title = $request->title;
         $products->price = $request->price;

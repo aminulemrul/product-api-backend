@@ -31,6 +31,7 @@ class APILoginController extends Controller
 
     public function logout(Request $request)
     {
+        return response()->json($request);
         $this->validate($request, [
             'token' => 'required'
         ]);
